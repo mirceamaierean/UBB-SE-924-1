@@ -12,4 +12,10 @@ public class DataContext : DbContext
 
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Message> Messages { get; set; } = null!;
+    public DbSet<Chat> Chats { get; set; } = null!;
+    public DbSet<Interest> Interests { get; set; } = null!;
+    public DbSet<MapLocation> MapLocations { get; set; } = null!;
+    public DbSet<Request> Requests { get; set; } = null!;
+    public DbSet<UserChat> UserChats { get; set; } = null!;
+    public DbSet<UserInterest> UserInterests { get; set; } = null!;
 }

@@ -55,7 +55,7 @@ namespace _924_server.Controllers
         {
             var userToUpdate = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (userToUpdate == null) return NotFound();
-            userToUpdate.Username = user.Username;
+            userToUpdate.Name = user.Name;
             await _context.SaveChangesAsync();
             return Ok();
         }
