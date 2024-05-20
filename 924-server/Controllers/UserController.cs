@@ -59,5 +59,19 @@ namespace _924_server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+        
+        // define endpoint for getting all chats of a user
+        [HttpGet("{id}/chats")]
+        public async Task<ActionResult<List<Chat>>> GetUserChats(int id)
+        {
+            var chats = await _context.UserChats
+                .Where(x => x.UserId == id)
+                .Select(x => x.Chat)
+                .ToListAsync();
+            
+            if (chats.Count == 0) return NotFound("User has no chats");
+            
+            return Ok(chats);
+        }
     }
 }
