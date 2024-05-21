@@ -1,5 +1,7 @@
-﻿namespace _924_server.Entities
+﻿using Microsoft.EntityFrameworkCore;
+namespace _924_server.Entities
 {
+    [PrimaryKey(nameof(Id))]
     public class Chat
     {
         public int Id { get; set; }

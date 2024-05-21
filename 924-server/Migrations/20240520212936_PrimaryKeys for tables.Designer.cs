@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _924_server.Data;
 
@@ -11,9 +12,11 @@ using _924_server.Data;
 namespace _924_server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240520212936_PrimaryKeys for tables")]
+    partial class PrimaryKeysfortables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace _924_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chats", (string)null);
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("_924_server.Entities.Interest", b =>
@@ -52,7 +55,7 @@ namespace _924_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Interests", (string)null);
+                    b.ToTable("Interests");
                 });
 
             modelBuilder.Entity("_924_server.Entities.MapLocation", b =>
@@ -80,7 +83,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MapLocations", (string)null);
+                    b.ToTable("MapLocations");
                 });
 
             modelBuilder.Entity("_924_server.Entities.Message", b =>
@@ -110,7 +113,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Messages", (string)null);
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("_924_server.Entities.Request", b =>
@@ -133,7 +136,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Requests", (string)null);
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("_924_server.Entities.User", b =>
@@ -150,7 +153,7 @@ namespace _924_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("_924_server.Entities.UserChat", b =>
@@ -165,7 +168,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.ToTable("UserChats", (string)null);
+                    b.ToTable("UserChats");
                 });
 
             modelBuilder.Entity("_924_server.Entities.UserInterest", b =>
@@ -180,7 +183,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("InterestId");
 
-                    b.ToTable("UserInterests", (string)null);
+                    b.ToTable("UserInterests");
                 });
 
             modelBuilder.Entity("_924_server.Entities.MapLocation", b =>
