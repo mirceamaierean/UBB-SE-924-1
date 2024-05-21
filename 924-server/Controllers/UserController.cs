@@ -69,7 +69,7 @@ namespace _924_server.Controllers
                 .Select(x => x.Chat)
                 .ToListAsync();
             
-            if (chats.Count == 0) return NotFound("User has no chats");
+            //if (chats.Count == 0) return NotFound("User has no chats");
             
             return Ok(chats);
         }
