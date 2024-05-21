@@ -15,4 +15,6 @@ public class Message
     public Chat Chat { get; set; } = null!;
 
     public DateTime SentTime { get; set; }
+
+    public string Status { get; set; }
 }
