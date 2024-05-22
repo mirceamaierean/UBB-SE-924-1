@@ -20,7 +20,7 @@ namespace _924_server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.AsNoTracking().ToListAsync();
             return Ok(users);
         }
         
@@ -64,9 +64,14 @@ namespace _924_server.Controllers
         [HttpGet("{id}/chats")]
         public async Task<ActionResult<List<Chat>>> GetUserChats(int id)
         {
-            var chats = await _context.UserChats
+            var chats = await _context.UserChats.AsNoTracking()
                 .Where(x => x.UserId == id)
-                .Select(x => x.Chat)
+                .Join(
+                    _context.Chats,
+                    uc => uc.ChatId,
+                    c => c.Id,
+                    (uc, c) => c
+                )
                 .ToListAsync();
             
             //if (chats.Count == 0) return NotFound("User has no chats");

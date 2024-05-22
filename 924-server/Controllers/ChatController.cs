@@ -19,16 +19,14 @@ namespace _924_server.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Chat>>> GetAllChats()
         {
-            var chats = await _context.Chats.ToListAsync();
+            var chats = await _context.Chats.AsNoTracking().ToListAsync();
             return Ok(chats);
         }
 
         [HttpGet("getAllMessagesExample")]
         public async Task<ActionResult<List<Message>>> GetAllMessages()
         {
-            var messages = await _context.Messages
-                .Include(m => m.User)
-                .Include(m => m.Chat)
+            var messages = await _context.Messages.AsNoTracking()
                 .ToListAsync();
 
             return Ok(messages);
@@ -45,9 +43,14 @@ namespace _924_server.Controllers
         [HttpGet("{chatId}/participants")]
         public async Task<ActionResult<List<User>>> GetChatParticipants(int chatId)
         {
-            var participants = await _context.UserChats
+            var participants = await _context.UserChats.AsNoTracking()
                 .Where(uc => uc.ChatId == chatId)
-                .Select(uc => uc.User)
+                .Join(
+                    _context.Users,
+                    uc => uc.ChatId,
+                    u => u.Id,
+                    (uc, u) => u
+                )
                 .ToListAsync();
             return Ok(participants);
         }
@@ -55,7 +58,7 @@ namespace _924_server.Controllers
         [HttpGet("{chatId}/messages")]
         public async Task<ActionResult<List<Message>>> GetChatMessages(int chatId)
         {
-            var messages = await _context.Messages
+            var messages = await _context.Messages.AsNoTracking()
                 .Where(m => m.ChatId == chatId)
                 .ToListAsync();
             return Ok(messages);
@@ -72,7 +75,7 @@ namespace _924_server.Controllers
         [HttpGet("{chatId}/lastmessage")]
         public async Task<ActionResult<Message>> GetChatLastMessage(int chatId)
         {
-            var lastMessage = await _context.Messages
+            var lastMessage = await _context.Messages.AsNoTracking()
                 .Where(m => m.ChatId == chatId)
                 .OrderByDescending(m => m.SentTime)
                 .FirstOrDefaultAsync();
@@ -83,10 +86,10 @@ namespace _924_server.Controllers
         [HttpPost("{chatId}/addmessage")]
         public async Task<ActionResult<Message>> AddMessageToChat(int chatId, Message message)
         {
-            var chat = await _context.Chats.FindAsync(chatId);
+            var chat = await _context.Chats.AsNoTracking().FirstOrDefaultAsync(c => c.Id == chatId);
             if (chat == null) return NotFound("Chat not found");
 
-            message.ChatId = chatId;
+            //message.ChatId = chatId;
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
             return Ok(message);

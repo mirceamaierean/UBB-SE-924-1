@@ -32,7 +32,7 @@ namespace _924_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chats", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.Interest", b =>
@@ -49,7 +49,7 @@ namespace _924_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Interests");
+                    b.ToTable("Interests", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.MapLocation", b =>
@@ -77,7 +77,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("MapLocations");
+                    b.ToTable("MapLocations", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.Message", b =>
@@ -111,7 +111,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.Request", b =>
@@ -134,7 +134,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.User", b =>
@@ -155,7 +155,7 @@ namespace _924_server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.UserChat", b =>
@@ -170,7 +170,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("ChatId");
 
-                    b.ToTable("UserChats");
+                    b.ToTable("UserChats", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.UserInterest", b =>
@@ -185,7 +185,7 @@ namespace _924_server.Migrations
 
                     b.HasIndex("InterestId");
 
-                    b.ToTable("UserInterests");
+                    b.ToTable("UserInterests", (string)null);
                 });
 
             modelBuilder.Entity("_924_server.Entities.MapLocation", b =>
