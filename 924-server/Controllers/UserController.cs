@@ -78,5 +78,39 @@ namespace _924_server.Controllers
             
             return Ok(chats);
         }
+
+        [HttpPost("{userId}/chats/{chatId}")]
+        public async Task<ActionResult<UserChat>> AddUserChat(int userId, int chatId)
+        {
+            // Check if the user exists
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+                return NotFound("User not found");
+
+            // Check if the chat exists
+            var chat = await _context.Chats.FindAsync(chatId);
+            if (chat == null)
+                return NotFound("Chat not found");
+
+            // Check if the user chat relationship already exists
+            var existingUserChat = await _context.UserChats
+                .FirstOrDefaultAsync(uc => uc.UserId == userId && uc.ChatId == chatId);
+
+            if (existingUserChat != null)
+                return Conflict("UserChat relationship already exists");
+
+            // Create the UserChat relationship
+            var newUserChat = new UserChat
+            {
+                UserId = userId,
+                ChatId = chatId
+            };
+
+            _context.UserChats.Add(newUserChat);
+            await _context.SaveChangesAsync();
+
+            return Ok(newUserChat);
+        }
+
     }
 }
