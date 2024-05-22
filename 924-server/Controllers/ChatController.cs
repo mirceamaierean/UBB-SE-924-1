@@ -47,13 +47,15 @@ namespace _924_server.Controllers
                 .Where(uc => uc.ChatId == chatId)
                 .Join(
                     _context.Users,
-                    uc => uc.ChatId,
+                    uc => uc.UserId,
                     u => u.Id,
                     (uc, u) => u
                 )
                 .ToListAsync();
+
             return Ok(participants);
         }
+
 
         [HttpGet("{chatId}/messages")]
         public async Task<ActionResult<List<Message>>> GetChatMessages(int chatId)
@@ -93,6 +95,14 @@ namespace _924_server.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
             return Ok(message);
+        }
+
+
+        [HttpGet("test")]
+        public async Task<ActionResult<List<UserChat>>> GetChatParticipants()
+        {
+            var userChats = await _context.UserChats.AsNoTracking().ToListAsync();
+            return Ok(userChats);
         }
     }
 }
